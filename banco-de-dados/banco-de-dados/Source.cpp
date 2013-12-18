@@ -274,15 +274,81 @@ void remove_curso(int Compara)
 
 void consulta_aluno(int cod)
 {
+        for (int i = 0; i < a; i++)
+        {
+                system("cls");
+                string _nome;
+                cout << "Digite o nome completo do aluno a ser encontrado: ";
+                fflush(stdin);
+                gets_s(_nome);
+                if(strcmp(alunos[a].NomeAluno,_nome) == 0)
+                {
+                        cout << "\n\nDados do aluno pequisado: ";
+                        cout << "\n\nNome: " << alunos[a].NomeAluno << "\nCPF: ";
+                        cout << alunos[a].Cpf << "\nMatricula: " << _matricula;
+                        cout << "\nEmail: " <<alunos[a].Email;
+                        cout << "\n\nRua: " << alunos[a].Rua << "\nBairro: " << alunos[a].Bairro;
+                        cout << "\nTelefone: " << alunos[a].Telefone;
+                        cout << " \Cidade: " << alunos[a].Cidade << "\n\n"; 
+                }
+                else
+                {
+                        cout << "\n\nAluno não cadastrado!!!";
+                }
+        }
+        
+        a--;
 
 }
 
 void consulta_turma(int cod)
 {
+        for (int i = 0; i < t; i++)
+        {
+                system("cls");
+                string _turma;
+                cout << "Digite o codigo da turma a ser encontrado: ";
+                fflush(stdin);
+                gets_s(_turma);
+                if(strcmp(turmas[i].CodTurma,_turma) == 0)
+                {
+                        cout << "\n\nDados da turma pequisado: ";
+                        cout << "\n\nNome da turma: " << turmas[t].NomeTurma << "\nData da criação da turma:";
+                        cout <<  turmas[t].Data << "\nCodigo do curso: " << turmas[t].CodCurso;
+                        cout << "\n\n"; 
+                }
+                else
+                {
+                        cout << "\n\nTurma não cadastrado!!!";
+                }
+        }
+        
+        t--;
 
 }
 void consulta_curso(int cod)
 {
+        for (int i = 0; i < c; i++)
+        {
+                system("cls");
+                string _curso;
+                cout << "Digite o codigo do curso a ser encontrado: ";
+                fflush(stdin);
+                gets_s(_curso);
+                if(strcmp(cursos[c].CodCurso ,_curso) == 0)
+                {
+                        cout << "\n\nDados do curso pequisado: ";
+                        cout << "\n\nCodigo do curso: " << cursos[c].CodCurso << "\nNome do curso:";
+                        cout <<  cursos[c].NomeCurso;
+                        cout << "\n\n"; 
+                }
+                else
+                {
+                        cout << "\n\nCurso não cadastrado!!!";
+                }
+        }
+        
+        c--;
 
 }
 
