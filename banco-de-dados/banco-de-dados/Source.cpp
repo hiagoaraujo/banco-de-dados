@@ -359,69 +359,79 @@ void update_turma()
 {
 	int m;
 	int choose;	
-	int aux;
+	int aux=0;
 	system("CLS");
 	cout << "Digite o codigo da turma a ser alterada\n";
 	cin >> m;
-	do{
-		system("CLS");
-		cout << "        ESCOLHA QUAL OPCAO QUER ALTERAR \n";
-		cout << "\n   [1] Alterar Nome da turma";
-		cout << "\n   [2] Alterar Codigo da turma";
-		cout << "\n   [3] Alterar data de criacao desta turma (DDMMAAAA)";
-		cout << "\n   [4] Alterar Codigo do curso a que esta turma pertence";
-		cout << "\n   [5] Voltar ao menu principal\n";
-		cin >> choose;
-		switch (choose)
-		{
-		case '1':  
-			system("CLS");	
-			cout << "\nDigite o nome da turma para ser alterado: ";
-			getline(cin, turmas[m].NomeTurma);
-			break;
-
-		case '2':  
+	for(int i=0;i<t;i++)
+		if(m==turmas[i].CodTurma)
+			aux = 1;
+	if(aux == 1){
+		do{
 			system("CLS");
-			cout << "Digite o codigo da turma: ";
-			cin >> aux;	
-			for(int j=0;j<t;j++){
-				if(turmas[j].CodTurma == aux){
-					cout << "\nCodigo de turma ja existente!\n";
-					system("PAUSE");
-					break;
+			cout << "        ESCOLHA QUAL OPCAO QUER ALTERAR \n";
+			cout << "\n   [1] Alterar Nome da turma";
+			cout << "\n   [2] Alterar Codigo da turma";
+			cout << "\n   [3] Alterar data de criacao desta turma (DDMMAAAA)";
+			cout << "\n   [4] Alterar Codigo do curso a que esta turma pertence";
+			cout << "\n   [5] Voltar ao menu principal\n";
+			cin >> choose;
+			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
+			switch (choose)
+			{
+			case 1:  
+				system("CLS");	
+				cout << "\nDigite o nome da turma para ser alterado: ";
+				getline(cin, turmas[m].NomeTurma);
+				break;
+
+			case 2:  
+				system("CLS");
+				cout << "Digite o codigo da turma: ";
+				cin >> aux;	
+				for(int j=0;j<t;j++){
+					if(turmas[j].CodTurma == aux){
+						cout << "\nCodigo de turma ja existente!\n";
+						system("PAUSE");
+						break;
+					}
 				}
+				for(int i=0;i<a;i++) // altera o CodTurma de todos os alunos matriculados nessa turma
+					if(alunos[i].CodTurma == turmas[m].CodTurma)
+						alunos[i].CodTurma = aux;
+				turmas[m].CodTurma = aux;
+				break;
+
+			case 3: 
+				system("CLS");
+				cout << "Novo data de criacao: "<<a<<endl;
+				cin >> turmas[m].Data;
+				fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
+				break;
+
+			case 4: 
+				system("CLS");
+				cout << "Codigo do curso a que esta turma pertence :";
+				cin >> turmas[m].CodCurso;
+				fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
+				break;
+
+			case 5:  //SAIR
+				break;
+
+			default:  //caso a opcao nao exista envia mensagem de erro
+				system("CLS");
+				cout << "Leia as intrucoes!";
+				_getch();
+				break;
 			}
-			for(int i=0;i<a;i++) // altera o CodTurma de todos os alunos matriculados nessa turma
-				if(alunos[i].CodTurma == turmas[m].CodTurma)
-					alunos[i].CodTurma = aux;
-			turmas[m].CodTurma = aux;
-			break;
 
-		case '3': 
-			system("CLS");
-			cout << "Novo data de criacao: "<<a<<endl;
-			cin >> turmas[m].Data;
-			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
-			break;
-
-		case '4': 
-			system("CLS");
-			cout << "Codigo do curso a que esta turma pertence :";
-			cin >> turmas[m].CodCurso;
-			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
-			break;
-
-		case '5':  //SAIR
-			break;
-
-		default:  //caso a opcao nao exista envia mensagem de erro
-			system("CLS");
-			cout << "Leia as intrucoes!";
-			_getch();
-			break;
-		}
-
-	}while (choose != 5);
+		}while (choose != 5);
+	}
+	else {
+		cout<<"Turma nao encontrada\n";
+		getch();
+	}
 
 }
 
@@ -429,157 +439,176 @@ void update_curso()
 {
 	int m;
 	int choose;	
-	int aux;
+	int aux=0;
 	system("CLS");
-	cout << "Digite o codigo da turma a ser alterada\n";
+	cout << "Digite o codigo do curso a ser alterado\n";
 	cin >> m;
-	do{
-		system("CLS");
-		cout << "        ESCOLHA QUAL OPCAO QUER ALTERAR \n";
-		cout << "\n   [1] Alterar Nome do curso";
-		cout << "\n   [2] Alterar Codigo do curso";
-		cout << "\n   [3] Voltar ao menu principal\n";
-		cin >> choose;
-		switch (choose)
-		{
-		case '1':  
-			system("CLS");	
-			cout << "\nDigite o nome do curso para ser alterado: ";
-			getline(cin, cursos[m].NomeCurso);
-			break;
-
-		case '2':  
+	for(int i=0;i<c;i++)
+		if(m==cursos[i].CodCurso)
+			aux = 1;
+	if(aux==1){
+		do{
 			system("CLS");
-			cout << "Digite o codigo do curso: ";
-			cin >> aux;	
-			for(int j=0;j<c;j++){
-				if(cursos[j].CodCurso == aux){
-					cout << "\nCodigo de curso ja existente!\n";
-					system("PAUSE");
-					break;
+			cout << "        ESCOLHA QUAL OPCAO QUER ALTERAR \n";
+			cout << "\n   [1] Alterar Nome do curso";
+			cout << "\n   [2] Alterar Codigo do curso";
+			cout << "\n   [3] Voltar ao menu principal\n";
+			cin >> choose;
+			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
+			switch (choose)
+			{
+			case 1:  
+				system("CLS");	
+				cout << "\nDigite o nome do curso para ser alterado: ";
+				getline(cin, cursos[m].NomeCurso);
+				break;
+
+			case 2:  
+				system("CLS");
+				cout << "Digite o codigo do curso: ";
+				cin >> aux;	
+				for(int j=0;j<c;j++){
+					if(cursos[j].CodCurso == aux){
+						cout << "\nCodigo de curso ja existente!\n";
+						system("PAUSE");
+						break;
+					}
 				}
+				for (int i =0 ; i< t; i++)  // altera o CodCurso de todas as turmas deste curso
+					if(turmas[i].CodCurso == cursos[m].CodCurso)
+						turmas[i].CodCurso = aux;
+				cursos[m].CodCurso = aux;
+				break;		
+
+			case 3:  //SAIR
+				break;
+
+			default:  //caso a opcao nao exista envia mensagem de erro
+				system("CLS");
+				cout << "Leia as intrucoes!";
+				_getch();
+				break;
 			}
-			for (int i =0 ; i< t; i++)  // altera o CodCurso de todas as turmas deste curso
-				if(turmas[i].CodCurso == cursos[m].CodCurso)
-					turmas[i].CodCurso = aux;
-			cursos[m].CodCurso = aux;
-			break;		
 
-		case '3':  //SAIR
-			break;
-
-		default:  //caso a opcao nao exista envia mensagem de erro
-			system("CLS");
-			cout << "Leia as intrucoes!";
-			_getch();
-			break;
-		}
-
-	}while (choose != 3);
+		}while (choose != 3);
+	}
+	else {
+		cout << "Curso nao encontrado!\n";
+		getch();
+	}
 }
 
 void update_aluno()
 {
 	int m;
 	int choose;	
-	int aux;
+	int aux=0;
 	system("CLS");
 	cout << "Digite a matricula do aluno a ser alterado\n";
 	cin >> m;
-	do{
-		system("CLS");
-		cout << "        ESCOLHA QUAL OPCAO QUER ALTERAR \n";
-		cout << "\n   [1] Alterar Nome";
-		cout << "\n   [2] Alterar CPF";
-		cout << "\n   [3] Alterar Matricula";
-		cout << "\n   [4] Alterar Email";
-		cout << "\n   [5] Alterar Rua";
-		cout << "\n   [6] Alterar Bairro";
-		cout << "\n   [7] Alterar Cidade";
-		cout << "\n   [8] Alterar Telefone";
-		cout << "\n   [9] Alterar Turma a qual pertence";
-		cout << "\n   [10] Voltar ao menu principal\n";
-		cin >> choose;
-		switch (choose)
-		{
-		case '1':  
-			system("CLS");	
-			cout << "\nDigite o nome do aluno para ser alterado: ";
-			getline(cin, alunos[m].NomeAluno);
-			break;
-
-		case '2':  
+	for(int i=0;i<a;i++)
+		if(m==alunos[i].Matricula)
+			aux = 1;
+	if(aux == 1){
+		do{
 			system("CLS");
-			cout << "Digite o cpf do aluno: ";
-			cin >> alunos[m].Cpf;			
-			break;
-
-		case '3': 
-			system("CLS");
-			cout << "Novo numero de matricula do aluno: "<<a<<endl;
-			cin >> aux;
+			cout << "        ESCOLHA QUAL OPCAO QUER ALTERAR \n";
+			cout << "\n   [1] Alterar Nome";
+			cout << "\n   [2] Alterar CPF";
+			cout << "\n   [3] Alterar Matricula";
+			cout << "\n   [4] Alterar Email";
+			cout << "\n   [5] Alterar Rua";
+			cout << "\n   [6] Alterar Bairro";
+			cout << "\n   [7] Alterar Cidade";
+			cout << "\n   [8] Alterar Telefone";
+			cout << "\n   [9] Alterar Turma a qual pertence";
+			cout << "\n   [10] Voltar ao menu principal\n";
+			cin >> choose;
 			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
-			for(int i = 0; i<a ; i++)
-				if (alunos[i].Matricula == aux){
-					cout << "\nMatricula ja existente!\n";
-					system("PAUSE");
-					break;
-				}
-				alunos[m].Matricula = aux;
+			switch (choose)
+			{
+			case 1:  
+				system("CLS");	
+				cout << "\nDigite o nome do aluno para ser alterado: ";
+				getline(cin, alunos[m].NomeAluno);
+				break;
 
-			break;
+			case 2:  
+				system("CLS");
+				cout << "Digite o cpf do aluno: ";
+				cin >> alunos[m].Cpf;		
+				break;
 
-		case '4': 
-			system("CLS");
-			cout << "Digite o Email: ";
-			cin >> alunos[m].Email;
-			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
-			break;
+			case 3: 
+				system("CLS");
+				cout << "Novo numero de matricula do aluno: "<<a<<endl;
+				cin >> aux;
+				fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
+				for(int i = 0; i<a ; i++)
+					if (alunos[i].Matricula == aux){
+						cout << "\nMatricula ja existente!\n";
+						system("PAUSE");
+						break;
+					}
+					alunos[m].Matricula = aux;
 
-		case '5':  
-			system("CLS");
-			cout << "Digite a rua do aluno: ";
-			getline(cin, alunos[m].Rua);
-			break;
+				break;
 
-		case '6': 
-			system("CLS");
-			cout << "Digite o bairro do aluno: ";
-			getline(cin, alunos[m].Bairro);
-			break;
+			case 4: 
+				system("CLS");
+				cout << "Digite o Email: ";
+				cin >> alunos[m].Email;
+				fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
+				break;
 
-		case '7':  
-			system("CLS");
-			cout << "Digite a cidade do aluno: ";
-			getline(cin, alunos[m].Cidade);
-			break;
+			case 5:  
+				system("CLS");
+				cout << "Digite a rua do aluno: ";
+				getline(cin, alunos[m].Rua);
+				break;
 
-		case '8':  
-			system("CLS");
-			cout << "Digite o telefone do aluno: ";
-			cin >> alunos[m].Telefone;
-			break;
+			case 6: 
+				system("CLS");
+				cout << "Digite o bairro do aluno: ";
+				getline(cin, alunos[m].Bairro);
+				break;
+
+			case 7:  
+				system("CLS");
+				cout << "Digite a cidade do aluno: ";
+				getline(cin, alunos[m].Cidade);
+				break;
+
+			case 8:  
+				system("CLS");
+				cout << "Digite o telefone do aluno: ";
+				cin >> alunos[m].Telefone;
+				break;
 		
-		case '9'
-			system("CLS");
-			cout << "Digite o codigo da turma a ser alterado";
-			cin >> alunos[m].CodTurma;
+			case 9 :
+				system("CLS");
+				cout << "Digite o codigo da turma a ser alterado";
+				cin >> alunos[m].CodTurma;
+				break;
 
-		case '10':  //SAIR
-			break;
+			case 10:  //SAIR
+				break;
 
-		default:  //caso a opcao nao exista envia mensagem de erro
-			system("CLS");
-			cout << "Leia as intrucoes!";
-			_getch();
-			break;
-		}
+			default:  //caso a opcao nao exista envia mensagem de erro
+				system("CLS");
+				cout << "Leia as intrucoes!";
+				_getch();
+				break;
+			}
 
-	}while (choose != 10);
+		}while (choose != 10);
+	}
+	else{
+		cout<<"Aluno nao encontrado!\n";
+		getch();
+	}
 	
 }
-
-
 
 
 
