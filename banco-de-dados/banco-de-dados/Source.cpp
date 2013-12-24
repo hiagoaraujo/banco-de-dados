@@ -153,83 +153,66 @@ void remove_curso(int m) // m é o codigo do curso a ser excluido
 
 void consulta_aluno(int cod)
 {
-        system("cls");
-	char nome[20];
-	int i,pos = -1;
-	cout << "Digite o nome completo do aluno a ser encontrado: ";
-	fflush(stdin);
-	gets_s(nome);
-	for(i = 0 ; i < a ; i++)
+    system("cls");
+int student = find_aluno(cod);
+
+	if(student== -1)
 	{
-		if(strcmp(nome,alunos[a].NomeAluno) == 0)
-			pos = i;
-	}
-	if(pos != -1)
-	{
-		 cout << "\n\nDados do aluno pequisado: ";
-         cout << "\n\nNome: " << alunos[a].NomeAluno << "\nCPF: ";
-         cout << alunos[a].Cpf << "\nCodigo da turma: " << alunos[a].CodTurma;
-         cout << "\nEmail: " <<alunos[a].Email;
-         cout << "\n\nRua: " << alunos[a].Rua << "\nBairro: " << alunos[a].Bairro;
-         cout << "\nTelefone: " << alunos[a].Telefone;
-         cout << " \nCidade: " << alunos[a].Cidade << "\n\n"; 
+		cout<<"Aluno nao encontrado "<<endl;
+		_getch();
 	}
 	else
-        {
-		cout << "\n\nAluno não cadastrado!!!"; 
-        }
+	{
+	cout <<"\nNome: "<<alunos[student].NomeAluno;
+	cout <<"\nMatricula:"<<alunos[student].Matricula;
+	cout <<"\nCPF:"<<alunos[student].Cpf;
+	cout <<"\nEndereco: \nRua:"<<alunos[student].Rua;
+	cout <<"\nBairro"<<alunos[student].Bairro;
+	cout <<"\nCidade"<<alunos[student].Cidade;
+	cout <<"\nE-mail"<<alunos[student].Email;
+	cout <<"\nTelefone:"<<alunos[student].Telefone;
+	cout <<"\nTurma: "<<turmas[find_turma(alunos[student].CodTurma)].NomeTurma;
+	_getch();
+	}
 }
 
 void consulta_turma(int cod)
 {
-        system("cls");
-	char turma[20];
-	int i,pos = -1;
-	cout << "Digite o codigo da turma a ser encontrado: ";
-	fflush(stdin);
-	gets_s(turma);
-	for(i = 0 ; i < t ; i++)
+    system("cls");
+	int classe = find_turma(cod);
+	if(classe==-1)
 	{
-		if(strcmp(curso,turmas[i].CodTurma) == 0)
-			pos = i;
-	}
-	if(pos != -1)
-	{
-                cout << "\n\nDados da turma pequisado: ";
-                cout << "\n\nNome da turma: " << turmas[t].NomeTurma << "\nData da criação da turma:";
-                cout <<  turmas[t].Data << "\nCodigo do curso: " << turmas[t].CodCurso;
-                cout << "\n\n"; 
+		cout<<"Turma nao encontrada "<<endl;
+			cout<<endl;
+		system("pause");
 	}
 	else
-        {
-		cout << "\n\nTurma não cadastrado!!!";
-        }
+	{
+
+	cout <<"\nNome da turma:"<<turmas[classe].NomeTurma;
+	cout <<"\nCodigo da turma:"<<turmas[classe].CodTurma;
+	cout <<"\nCurso :"<<cursos[find_curso(turmas[classe].CodCurso)].NomeCurso;
+			cout<<endl;
+	system("pause");
+	}
 }
 void consulta_curso(int cod)
 
 {
-        system("cls");
-	char curso[20];
-	int i,pos = -1;
-	cout << "Digite o codigo do curso a ser encontrado: : ";
-	fflush(stdin);
-	gets_s(curso);
-	for(i = 0 ; i < c ; i++)
+    system("cls");
+	int curse = find_curso(cod);
+	if(curse==-1)
 	{
-		if(strcmp(curso,cursos[c].CodCurso) == 0)
-			pos = i;
-	}
-	if(pos != -1)
-	{
-                 cout << "\n\nDados do curso pequisado: ";
-                 cout << "\n\nCodigo do curso: " << cursos[c].CodCurso << "\nNome do curso:";
-                 cout << cursos[c].NomeCurso;
-                 cout << "\n\n"; 
+		cout<<"Curso nao encontrado "<<endl;
+		system("pause");
 	}
 	else
-        {
-		cout << "\n\nCurso não cadastrado!!!";
-        }
+	{
+	cout <<"\nNome do curso:"<<cursos[curse].NomeCurso;
+	cout <<"\nCodigo do curso:"<<cursos[curse].CodCurso;
+		cout<<endl;
+		system("pause");
+	}
 }
 
 
@@ -253,13 +236,15 @@ void update_turma()
 		cin >> choose;
 		switch (choose)
 		{
-		case '1':  
+		case 
+			1:  
 			system("CLS");	
 			cout << "\nDigite o nome da turma para ser alterado: ";
+			fflush(stdin);
 			getline(cin, turmas[m].NomeTurma);
 			break;
 
-		case '2':  
+		case 2:  
 			system("CLS");
 			cout << "Digite o codigo da turma: ";
 			cin >> aux;	
@@ -276,21 +261,21 @@ void update_turma()
 			turmas[m].CodTurma = aux;
 			break;
 
-		case '3': 
+		case 3: 
 			system("CLS");
 			cout << "Novo data de criacao: "<<a<<endl;
 			cin >> turmas[m].Data;
 			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
 			break;
 
-		case '4': 
+		case 4: 
 			system("CLS");
 			cout << "Codigo do curso a que esta turma pertence :";
 			cin >> turmas[m].CodCurso;
 			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
 			break;
 
-		case '5':  //SAIR
+		case 5:  //SAIR
 			break;
 
 		default:  //caso a opcao nao exista envia mensagem de erro
@@ -321,13 +306,14 @@ void update_curso()
 		cin >> choose;
 		switch (choose)
 		{
-		case '1':  
+		case 1:  
 			system("CLS");	
 			cout << "\nDigite o nome do curso para ser alterado: ";
+			fflush(stdin);
 			getline(cin, cursos[m].NomeCurso);
 			break;
 
-		case '2':  
+		case 2:  
 			system("CLS");
 			cout << "Digite o codigo do curso: ";
 			cin >> aux;	
@@ -344,7 +330,7 @@ void update_curso()
 			cursos[m].CodCurso = aux;
 			break;		
 
-		case '3':  //SAIR
+		case 3:  //SAIR
 			break;
 
 		default:  //caso a opcao nao exista envia mensagem de erro
@@ -381,19 +367,20 @@ void update_aluno()
 		cin >> choose;
 		switch (choose)
 		{
-		case '1':  
+		case 1:  
 			system("CLS");	
 			cout << "\nDigite o nome do aluno para ser alterado: ";
+			fflush(stdin);
 			getline(cin, alunos[m].NomeAluno);
 			break;
 
-		case '2':  
+		case 2:  
 			system("CLS");
 			cout << "Digite o cpf do aluno: ";
 			cin >> alunos[m].Cpf;			
 			break;
 
-		case '3': 
+		case 3: 
 			system("CLS");
 			cout << "Novo numero de matricula do aluno: "<<a<<endl;
 			cin >> aux;
@@ -408,43 +395,47 @@ void update_aluno()
 
 			break;
 
-		case '4': 
+		case 4: 
 			system("CLS");
 			cout << "Digite o Email: ";
+			fflush(stdin);
 			cin >> alunos[m].Email;
 			fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
 			break;
 
-		case '5':  
+		case 5:  
 			system("CLS");
 			cout << "Digite a rua do aluno: ";
+			fflush(stdin);
 			getline(cin, alunos[m].Rua);
 			break;
 
-		case '6': 
+		case 6: 
 			system("CLS");
 			cout << "Digite o bairro do aluno: ";
+			fflush(stdin);
 			getline(cin, alunos[m].Bairro);
 			break;
 
-		case '7':  
+		case 7:  
 			system("CLS");
 			cout << "Digite a cidade do aluno: ";
+			fflush(stdin);
 			getline(cin, alunos[m].Cidade);
 			break;
 
-		case '8':  
+		case 8:  
 			system("CLS");
 			cout << "Digite o telefone do aluno: ";
 			cin >> alunos[m].Telefone;
 			break;
 		
-		case '9'
+		case 9:
 			system("CLS");
 			cout << "Digite o codigo da turma a ser alterado";
 			cin >> alunos[m].CodTurma;
 
-		case '10':  //SAIR
+		case 10:  //SAIR
 			break;
 
 		default:  //caso a opcao nao exista envia mensagem de erro
