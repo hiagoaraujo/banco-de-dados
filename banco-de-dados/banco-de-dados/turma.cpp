@@ -107,5 +107,30 @@ void turma::update_aluno()
 
 void turma::imprime(int)
 {
-
+	char choose = 's';
+        do
+        {
+                system("cls");
+                string _nome;
+                cout << "Digite o nome completo do aluno a ser encontrado: ";
+                fflush(stdin);
+                gets_s(_nome);
+                if(strcmp(nome,_nome) == 0)
+                {
+                        cout << "\n\nDados do aluno pequisado: ";
+                        cout << "\n\nNome: " << _nomealuno << "\nCPF: ";
+                        cout << _cpf << "\nMatricula: " << _matricula;
+                        cout << "\nEmail: " <<_email;
+                        cout << "\n\nRua: " << _rua << "\nBairro: " << _bairro;
+                        cout << "\nTelefone: " << _telefone;
+                        cout << " \Cidade: " << _cidade << "\n\n";
+                }
+                else
+                {
+                        cout << "\n\nAluno não cadastrado!!!";
+                }
+                cout << "Deseja pesquisar outro aluno na mesma turma? (s/n): ";
+                fflush(stdin); // LIMPAR O CACHE DE ENTRADA;
+                cin >> choose;
+        } while (choose == 's' || choose == 'S');
 }
