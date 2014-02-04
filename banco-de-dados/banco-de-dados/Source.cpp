@@ -4,6 +4,7 @@
 using namespace std;
 
 
+
 	struct aluno
 	{
 		string NomeAluno, Rua, Bairro, Cidade, Email;
